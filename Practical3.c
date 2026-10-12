@@ -1,25 +1,115 @@
 #include <stdio.h>
 
-void call_by_value(int x, int y)
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push()
 {
-    int temp;
+    int item;
 
-    temp = x;
-    x = y;
-    y = temp;
+    if(top == MAX - 1)
+    {
+        printf("Stack Overflow\n");
+    }
+    else
+    {
+        printf("Enter Element: ");
+        scanf("%d", &item);
 
-    printf("Inside function: a = %d b = %d\n", x, y);
+        top++;
+        stack[top] = item;
+    }
+}
+
+void pop()
+{
+    if(top == -1)
+    {
+        printf("Stack Underflow\n");
+    }
+    else
+    {
+        printf("Deleted element: %d\n", stack[top]);
+        top--;
+    }
+}
+
+void peek()
+{
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+    }
+    else
+    {
+        printf("Top element: %d\n", stack[top]);
+    }
+}
+
+void display()
+{
+    int i;
+
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+    }
+    else
+    {
+        printf("Stack elements are:\n");
+
+        for(i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
 }
 
 int main()
 {
-    int a = 10, b = 20;
+    int choice;
 
-    printf("Before function: a = %d b = %d\n", a, b);
+    do
+    {
+        printf("\n--- STACK OPERATIONS ---\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peek\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
 
-    call_by_value(a, b);
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
 
-    printf("After function: a = %d b = %d\n", a, b);
+        switch(choice)
+        {
+            case 1:
+                push();
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid choice\n");
+        }
+
+    } while(choice != 5);
 
     return 0;
 }
